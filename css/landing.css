@@ -1,0 +1,241 @@
+/* ══════════════════════════════════════
+   LANDING PAGE — KalaiSelvi Photography
+   Wedding: Arjun & Meenakshi
+══════════════════════════════════════ */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --gold: #c9943a;
+  --gold-light: #e8c46a;
+  --gold-dark: #8b5e1a;
+  --crimson: #8b1a1a;
+  --cream: #fdf6e3;
+  --dark: #0d0804;
+  --deep: #1a0e05;
+}
+
+html, body {
+  width: 100%; height: 100%;
+  overflow: hidden;
+  background: var(--dark);
+  font-family: 'Philosopher', serif;
+}
+
+/* ── CANVAS ── */
+#star-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ── PETALS ── */
+.petal-wrap {
+  position: fixed; inset: 0;
+  z-index: 1; pointer-events: none;
+  overflow: hidden;
+}
+.petal {
+  position: absolute;
+  top: -40px;
+  width: 10px; height: 14px;
+  border-radius: 50% 0 50% 0;
+  opacity: 0.7;
+  animation: petalFall linear infinite;
+}
+@keyframes petalFall {
+  0%   { transform: translateY(0) rotate(0deg) translateX(0); opacity: .8; }
+  50%  { transform: translateY(50vh) rotate(180deg) translateX(30px); opacity: .6; }
+  100% { transform: translateY(105vh) rotate(360deg) translateX(-20px); opacity: 0; }
+}
+
+/* ── STUDIO TAG ── */
+.photo-studio-tag {
+  position: fixed;
+  top: 1.2rem; right: 1.4rem;
+  z-index: 10;
+  text-align: right;
+  color: rgba(201,148,58,.6);
+  font-family: 'Lora', serif;
+  font-size: .72rem;
+  letter-spacing: .08em;
+  line-height: 1.6;
+}
+.photo-studio-tag strong {
+  display: block;
+  color: var(--gold);
+  font-size: .82rem;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+}
+
+/* ── CENTER BLOCK ── */
+.landing-center {
+  position: fixed;
+  inset: 0;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  text-align: center;
+  padding: 1rem;
+}
+
+.landing-om {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  color: var(--gold);
+  opacity: .9;
+  animation: omPulse 3s ease-in-out infinite;
+  text-shadow: 0 0 30px rgba(201,148,58,.5);
+  margin-bottom: .2rem;
+}
+@keyframes omPulse {
+  0%,100% { transform: scale(1); opacity: .9; }
+  50%      { transform: scale(1.07); opacity: 1; }
+}
+
+.landing-tamil {
+  font-family: 'Noto Serif Tamil', serif;
+  font-size: clamp(.7rem, 2vw, .95rem);
+  color: rgba(232,196,106,.75);
+  letter-spacing: .12em;
+  margin-bottom: .1rem;
+}
+
+.landing-divider {
+  width: clamp(180px, 40vw, 280px);
+  opacity: .8;
+  margin: .3rem 0;
+}
+
+.landing-groom,
+.landing-bride {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: clamp(2.2rem, 7vw, 5rem);
+  color: var(--cream);
+  line-height: 1.1;
+  text-shadow:
+    0 0 40px rgba(201,148,58,.6),
+    0 2px 6px rgba(0,0,0,.8);
+  animation: nameReveal 1.5s ease forwards;
+  opacity: 0;
+}
+.landing-groom { animation-delay: .3s; }
+.landing-bride { animation-delay: .6s; }
+
+@keyframes nameReveal {
+  from { opacity: 0; transform: translateY(18px); filter: blur(4px); }
+  to   { opacity: 1; transform: translateY(0);    filter: blur(0); }
+}
+
+.weds-text {
+  font-family: 'Philosopher', serif;
+  font-style: italic;
+  font-size: clamp(.8rem, 2.5vw, 1.1rem);
+  color: var(--gold);
+  letter-spacing: .25em;
+  padding: 0 1rem;
+}
+.weds-line {
+  display: inline-block;
+  width: clamp(30px, 8vw, 60px);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  vertical-align: middle;
+}
+.landing-weds {
+  display: flex;
+  align-items: center;
+  gap: .3rem;
+  margin: .1rem 0;
+}
+
+.landing-date {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(.75rem, 2.2vw, 1rem);
+  color: var(--gold-light);
+  letter-spacing: .3em;
+  margin-top: .4rem;
+}
+.landing-venue {
+  font-family: 'Lora', serif;
+  font-size: clamp(.65rem, 1.8vw, .85rem);
+  color: rgba(232,196,106,.6);
+  letter-spacing: .06em;
+}
+
+/* ── COUNTDOWN RING ── */
+.countdown-ring {
+  position: relative;
+  width: 64px; height: 64px;
+  margin: .6rem auto .2rem;
+}
+.ring-svg {
+  width: 100%; height: 100%;
+}
+#ring-number {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Cinzel', serif;
+  font-size: 1.5rem;
+  color: var(--gold);
+}
+#ring-progress {
+  transition: stroke-dashoffset .9s ease;
+}
+
+/* ── ENTER BUTTON ── */
+#enter-btn {
+  margin-top: .6rem;
+  padding: .65rem 2.2rem;
+  background: transparent;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  font-family: 'Cinzel', serif;
+  font-size: clamp(.72rem, 2vw, .9rem);
+  letter-spacing: .2em;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: color .3s, border-color .3s;
+  opacity: 0;
+  animation: btnFade 1s .9s forwards;
+}
+@keyframes btnFade {
+  to { opacity: 1; }
+}
+#enter-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .35s ease;
+  z-index: -1;
+}
+#enter-btn:hover::before { transform: scaleX(1); }
+#enter-btn:hover { color: var(--dark); border-color: var(--gold); }
+
+/* ── FADE TRANSITION ── */
+#landing-screen {
+  transition: opacity .8s ease;
+}
+#landing-screen.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-height: 600px) {
+  .landing-om { font-size: 1.8rem; }
+  .landing-groom, .landing-bride { font-size: 2.2rem; }
+  .countdown-ring { width: 48px; height: 48px; }
+  .landing-divider { display: none; }
+}

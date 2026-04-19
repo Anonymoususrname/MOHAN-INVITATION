@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arjun & Meenakshi — Wedding Invitation</title>
+  <link rel="stylesheet" href="css/landing.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;600;900&family=Philosopher:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,400;0,600;1,400&family=Noto+Serif+Tamil:wght@400;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════
+     LANDING / INTRO SCREEN
+═══════════════════════════════════════ -->
+<div id="landing-screen">
+
+  <!-- Stars canvas -->
+  <canvas id="star-canvas"></canvas>
+
+  <!-- Floating petals -->
+  <div class="petal-wrap" id="petals"></div>
+
+  <!-- Photography watermark -->
+  <div class="photo-studio-tag">
+    <span>Crafted with love by</span>
+    <strong>KalaiSelvi Photography</strong>
+  </div>
+
+  <!-- Central content -->
+  <div class="landing-center">
+    <div class="landing-om">ॐ</div>
+    <p class="landing-tamil">வாழ்த்துக்கள் — திருமண அழைப்பிதழ்</p>
+    <div class="landing-divider">
+      <svg viewBox="0 0 300 20" xmlns="http://www.w3.org/2000/svg">
+        <line x1="0" y1="10" x2="110" y2="10" stroke="#c9943a" stroke-width="1"/>
+        <circle cx="130" cy="10" r="4" fill="none" stroke="#c9943a" stroke-width="1"/>
+        <circle cx="150" cy="10" r="6" fill="#c9943a"/>
+        <circle cx="170" cy="10" r="4" fill="none" stroke="#c9943a" stroke-width="1"/>
+        <line x1="190" y1="10" x2="300" y2="10" stroke="#c9943a" stroke-width="1"/>
+      </svg>
+    </div>
+    <h1 class="landing-groom">Arjun</h1>
+    <div class="landing-weds">
+      <span class="weds-line"></span>
+      <span class="weds-text">weds</span>
+      <span class="weds-line"></span>
+    </div>
+    <h1 class="landing-bride">Meenakshi</h1>
+    <div class="landing-divider">
+      <svg viewBox="0 0 300 20" xmlns="http://www.w3.org/2000/svg">
+        <line x1="0" y1="10" x2="110" y2="10" stroke="#c9943a" stroke-width="1"/>
+        <circle cx="130" cy="10" r="4" fill="none" stroke="#c9943a" stroke-width="1"/>
+        <circle cx="150" cy="10" r="6" fill="#c9943a"/>
+        <circle cx="170" cy="10" r="4" fill="none" stroke="#c9943a" stroke-width="1"/>
+        <line x1="190" y1="10" x2="300" y2="10" stroke="#c9943a" stroke-width="1"/>
+      </svg>
+    </div>
+    <p class="landing-date">14 · February · 2026</p>
+    <p class="landing-venue">Sri Kapaleeshwarar Temple Mandapam, Chennai</p>
+
+    <div class="countdown-ring" id="countdown-ring">
+      <svg class="ring-svg" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="44" fill="none" stroke="#2a1a0a" stroke-width="3"/>
+        <circle id="ring-progress" cx="50" cy="50" r="44" fill="none"
+          stroke="#c9943a" stroke-width="3"
+          stroke-dasharray="276.5" stroke-dashoffset="276.5"
+          stroke-linecap="round" transform="rotate(-90 50 50)"/>
+      </svg>
+      <span id="ring-number">5</span>
+    </div>
+
+    <button id="enter-btn" onclick="enterSite()">Enter Invitation ✦</button>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════
+     MAIN WEBSITE (hidden until enter)
+═══════════════════════════════════════ -->
+<div id="main-site" style="display:none;">
+  <!-- Injected via iframe for clean separation -->
+  <iframe id="site-frame" src="invitation.html" style="width:100%;height:100vh;border:none;display:block;"></iframe>
+</div>
+
+<script src="js/landing.js"></script>
+</body>
+</html>

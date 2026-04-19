@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arjun & Meenakshi — Wedding Invitation</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;600;900&family=Philosopher:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,400;0,600;1,400&family=Noto+Serif+Tamil:wght@400;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<!-- ═══ SCROLL PROGRESS BAR ═══ -->
+<div id="scroll-bar"></div>
+
+<!-- ═══ FLOATING DEEPAM LAMPS ═══ -->
+<div id="lamp-container"></div>
+
+<!-- ═══ MUSIC TOGGLE ═══ -->
+<button id="music-btn" title="Toggle Music" onclick="toggleMusic()">
+  <svg id="music-icon-on" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+    <path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>
+  </svg>
+  <svg id="music-icon-off" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" style="display:none;">
+    <path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>
+    <line x1="2" y1="2" x2="22" y2="22" stroke="currentColor" stroke-width="2"/>
+  </svg>
+</button>
+
+<audio id="bg-music" loop>
+  <source src="assets/audio/nadhaswaram.mp3" type="audio/mpeg" />
+</audio>
+
+<!-- ══════════════════════════════════════════════════════════
+     §1 HERO — Temple + Stars + Names
+══════════════════════════════════════════════════════════ -->
+<section id="hero">
+  <canvas id="hero-canvas"></canvas>
+
+  <div class="hero-blessing">
+    <span class="tamil-blessing">சுப விவாகம் — ஓம் நமசிவாய</span>
+  </div>
+
+  <!-- Temple SVG -->
+  <div class="temple-wrap" id="temple-parallax">
+    <svg id="temple-svg" viewBox="0 0 800 560" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMax meet">
+
+      <!-- Sky already in canvas; temple sits atop gradient base -->
+      <defs>
+        <linearGradient id="gopGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%"   stop-color="#c9943a" stop-opacity=".95"/>
+          <stop offset="60%"  stop-color="#a0722a"/>
+          <stop offset="100%" stop-color="#6b3f10"/>
+        </linearGradient>
+        <linearGradient id="wallGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%"   stop-color="#8b5e1a"/>
+          <stop offset="100%" stop-color="#3d1f08"/>
+        </linearGradient>
+        <linearGradient id="groundGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%"   stop-color="#4a2810"/>
+          <stop offset="100%" stop-color="#1a0a03"/>
+        </linearGradient>
+        <filter id="glow">
+          <feGaussianBlur stdDeviation="3" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <filter id="lampGlow">
+          <feGaussianBlur stdDeviation="5" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+
+      <!-- Ground platform -->
+      <rect x="0" y="500" width="800" height="60" fill="url(#groundGrad)"/>
+      <rect x="0" y="495" width="800" height="8"  fill="#c9943a" opacity=".4"/>
+
+      <!-- Wide temple wall -->
+      <rect x="80"  y="370" width="640" height="135" fill="url(#wallGrad)"/>
+      <rect x="80"  y="368" width="640" height="5"   fill="#c9943a" opacity=".5"/>
+
+      <!-- Wall decorative niches -->
+      <rect x="110" y="385" width="50" height="70" rx="3" fill="#1a0e05" opacity=".5"/>
+      <rect x="200" y="385" width="50" height="70" rx="3" fill="#1a0e05" opacity=".5"/>
+      <rect x="540" y="385" width="50" height="70" rx="3" fill="#1a0e05" opacity=".5"/>
+      <rect x="640" y="385" width="50" height="70" rx="3" fill="#1a0e05" opacity=".5"/>
+
+      <!-- Small deity figures in niches (simple) -->
+      <ellipse cx="135" cy="400" rx="10" ry="12" fill="#c9943a" opacity=".6"/>
+      <ellipse cx="225" cy="400" rx="10" ry="12" fill="#c9943a" opacity=".6"/>
+      <ellipse cx="565" cy="400" rx="10" ry="12" fill="#c9943a" opacity=".6"/>
+      <ellipse cx="665" cy="400" rx="10" ry="12" fill="#c9943a" opacity=".6"/>
+
+      <!-- Flag poles -->
+      <rect x="148" y="200" width="4"  height="175" fill="#8b5e1a"/>
+      <rect x="648" y="200" width="4"  height="175" fill="#8b5e1a"/>
+      <polygon points="152,200 152,230 180,215" fill="#8b1a1a"/>
+      <polygon points="648,200 648,230 620,215" fill="#8b1a1a"/>
+
+      <!-- GOPURAM — Main tower tiers (7 tiers, widening downward) -->
+      <!-- Tier 7 (top — kalasha) -->
+      <ellipse cx="400" cy="50"  rx="12" ry="18" fill="#c9943a" filter="url(#glow)"/>
+      <ellipse cx="400" cy="68"  rx="8"  ry="6"  fill="#a07020"/>
+      <!-- Pot stack -->
+      <ellipse cx="400" cy="74"  rx="10" ry="7"  fill="#c9943a"/>
+      <ellipse cx="400" cy="82"  rx="12" ry="7"  fill="#b08020"/>
+      <ellipse cx="400" cy="90"  rx="14" ry="8"  fill="#c9943a"/>
+      <!-- Finial spike -->
+      <rect x="397" y="30" width="6" height="22" fill="#c9943a"/>
+      <polygon points="400,22 394,34 406,34" fill="#e8c46a"/>
+
+      <!-- Tier 6 -->
+      <rect x="335" y="95"  width="130" height="40" rx="2" fill="url(#gopGrad)"/>
+      <rect x="335" y="95"  width="130" height="5"  rx="1" fill="#e8c46a" opacity=".6"/>
+      <!-- Miniature figures tier 6 -->
+      <rect x="350" y="100" width="8"  height="25" rx="2" fill="#8b5e1a" opacity=".7"/>
+      <rect x="395" y="100" width="8"  height="25" rx="2" fill="#8b5e1a" opacity=".7"/>
+      <rect x="440" y="100" width="8"  height="25" rx="2" fill="#8b5e1a" opacity=".7"/>
+
+      <!-- Tier 5 -->
+      <rect x="305" y="135" width="190" height="44" rx="2" fill="url(#gopGrad)"/>
+      <rect x="305" y="135" width="190" height="5"  fill="#e8c46a" opacity=".6"/>
+      <rect x="320" y="142" width="8"  height="28" rx="2" fill="#8b5e1a" opacity=".7"/>
+      <rect x="360" y="142" width="8"  height="28" rx="2" fill="#8b5e1a" opacity=".7"/>
+      <rect x="394" y="142" width="8"  height="28" rx="2" fill="#8b5e1a" opacity=".7"/>
+      <rect x="430" y="142" width="8"  height="28" rx="2" fill="#8b5e1a" opacity=".7"/>
+      <rect x="466" y="142" width="8"  height="28" rx="2" fill="#8b5e1a" opacity=".7"/>
+
+      <!-- Tier 4 -->
+      <rect x="270" y="179" width="260" height="48" rx="2" fill="url(#gopGrad)"/>
+      <rect x="270" y="179" width="260" height="5"  fill="#e8c46a" opacity=".7"/>
+      <rect x="285" y="186" width="9"  height="32" rx="2" fill="#8b5e1a" opacity=".7"/>
+      <rect x="320" y="186" width="9"  height="32" rx="2" fill="#8b5e1a" opacity=".7"/>
+      <rect x="360" y="186" width="9"  height="32" rx="2" fill="#8b5e1a" opacity=".7"/>
+      <rect x="395" y="186" width="9"  height="32" rx="2" fill="#8b5e1a" opacity=".7"/>
+      <rect x="430" y="186" width="9"  height="32" rx="2" fill="#8b5e1a" opacity=".7"/>
+      <rect x="466" y="186" width="9"  height="32" rx="2" fill="#8b5e1a" opacity=".7"/>
+      <rect x="500" y="186" width="9"  height="32" rx="2" fill="#8b5e1a" opacity=".7"/>
+
+      <!-- Tier 3 -->
+      <rect x="230" y="227" width="340" height="52" rx="2" fill="url(#gopGrad)"/>
+      <rect x="230" y="227" width="340" height="6"  fill="#e8c46a" opacity=".7"/>
+      <!-- Arch windows on tier 3 -->
+      <path d="M280 248 Q285 238 290 248 L290 268 L280 268 Z" fill="#1a0a03" opacity=".6"/>
+      <path d="M340 248 Q345 238 350 248 L350 268 L340 268 Z" fill="#1a0a03" opacity=".6"/>
+      <path d="M395 248 Q400 238 405 248 L405 268 L395 268 Z" fill="#1a0a03" opacity=".6"/>
+      <path d="M450 248 Q455 238 460 248 L460 268 L450 268 Z" fill="#1a0a03" opacity=".6"/>
+      <path d="M505 248 Q510 238 515 248 L515 268 L505 268 Z" fill="#1a0a03" opacity=".6"/>
+
+      <!-- Tier 2 -->
+      <rect x="185" y="279" width="430" height="55" rx="2" fill="url(#gopGrad)"/>
+      <rect x="185" y="279" width="430" height="6"  fill="#e8c46a" opacity=".8"/>
+      <path d="M230 298 Q237 285 244 298 L244 322 L230 322 Z" fill="#1a0a03" opacity=".6"/>
+      <path d="M295 298 Q302 285 309 298 L309 322 L295 322 Z" fill="#1a0a03" opacity=".6"/>
+      <path d="M360 298 Q367 285 374 298 L374 322 L360 322 Z" fill="#1a0a03" opacity=".6"/>
+      <path d="M393 298 Q400 285 407 298 L407 322 L393 322 Z" fill="#1a0a03" opacity=".6"/>
+      <path d="M426 298 Q433 285 440 298 L440 322 L426 322 Z" fill="#1a0a03" opacity=".6"/>
+      <path d="M490 298 Q497 285 504 298 L504 322 L490 322 Z" fill="#1a0a03" opacity=".6"/>
+      <path d="M550 298 Q557 285 564 298 L564 322 L550 322 Z" fill="#1a0a03" opacity=".6"/>
+
+      <!-- Tier 1 (base of tower) -->
+      <rect x="140" y="334" width="520" height="40" rx="2" fill="url(#gopGrad)"/>
+      <rect x="140" y="334" width="520" height="6"  fill="#e8c46a"/>
+      <rect x="140" y="369" width="520" height="4"  fill="#8b5e1a" opacity=".6"/>
+
+      <!-- ARCHED ENTRANCE -->
+      <rect x="340" y="380" width="120" height="125" rx="4" fill="#0d0804"/>
+      <path d="M340 410 Q400 360 460 410" fill="none" stroke="#c9943a" stroke-width="5"/>
+      <!-- Door panels -->
+      <rect x="344" y="412" width="54" height="90" rx="2" fill="#2a1505"/>
+      <rect x="402" y="412" width="54" height="90" rx="2" fill="#2a1505"/>
+      <!-- Door studs -->
+      <circle cx="358" cy="430" r="4" fill="#c9943a"/>
+      <circle cx="368" cy="430" r="4" fill="#c9943a"/>
+      <circle cx="378" cy="430" r="4" fill="#c9943a"/>
+      <circle cx="388" cy="430" r="4" fill="#c9943a"/>
+      <circle cx="358" cy="450" r="4" fill="#c9943a"/>
+      <circle cx="368" cy="450" r="4" fill="#c9943a"/>
+      <circle cx="378" cy="450" r="4" fill="#c9943a"/>
+      <circle cx="388" cy="450" r="4" fill="#c9943a"/>
+      <circle cx="416" cy="430" r="4" fill="#c9943a"/>
+      <circle cx="426" cy="430" r="4" fill="#c9943a"/>
+      <circle cx="436" cy="430" r="4" fill="#c9943a"/>
+      <circle cx="446" cy="430" r="4" fill="#c9943a"/>
+      <circle cx="416" cy="450" r="4" fill="#c9943a"/>
+      <circle cx="426" cy="450" r="4" fill="#c9943a"/>
+      <circle cx="436" cy="450" r="4" fill="#c9943a"/>
+      <circle cx="446" cy="450" r="4" fill="#c9943a"/>
+      <!-- Arch glow -->
+      <path d="M340 410 Q400 360 460 410" fill="none" stroke="#e8c46a" stroke-width="2" opacity=".8" filter="url(#glow)"/>
+
+      <!-- OIL LAMPS flanking entrance -->
+      <!-- Left lamp -->
+      <g class="hero-lamp" filter="url(#lampGlow)">
+        <rect x="305" y="455" width="14" height="40" fill="#6b3f10"/>
+        <ellipse cx="312" cy="455" rx="12" ry="5"   fill="#8b5e1a"/>
+        <ellipse cx="312" cy="450" rx="10" ry="8"   fill="#a07020"/>
+        <ellipse cx="312" cy="446" rx="7"  ry="4"   fill="#c9943a"/>
+        <!-- Flame -->
+        <ellipse cx="312" cy="438" rx="4"  ry="6"   fill="#e8c46a" class="lamp-flame"/>
+        <ellipse cx="312" cy="435" rx="2"  ry="4"   fill="#fff8d0" class="lamp-flame"/>
+        <!-- Glow -->
+        <circle  cx="312" cy="438" r="14"            fill="#c9943a" opacity=".12"/>
+      </g>
+      <!-- Right lamp -->
+      <g class="hero-lamp" filter="url(#lampGlow)">
+        <rect x="481" y="455" width="14" height="40" fill="#6b3f10"/>
+        <ellipse cx="488" cy="455" rx="12" ry="5"   fill="#8b5e1a"/>
+        <ellipse cx="488" cy="450" rx="10" ry="8"   fill="#a07020"/>
+        <ellipse cx="488" cy="446" rx="7"  ry="4"   fill="#c9943a"/>
+        <ellipse cx="488" cy="438" rx="4"  ry="6"   fill="#e8c46a" class="lamp-flame"/>
+        <ellipse cx="488" cy="435" rx="2"  ry="4"   fill="#fff8d0" class="lamp-flame"/>
+        <circle  cx="488" cy="438" r="14"            fill="#c9943a" opacity=".12"/>
+      </g>
+
+      <!-- Steps -->
+      <rect x="360" y="500" width="80" height="8"  fill="#6b3f10"/>
+      <rect x="355" y="504" width="90" height="8"  fill="#5a3010"/>
+      <rect x="350" y="510" width="100" height="8" fill="#4a2810"/>
+
+      <!-- Decorative border strip at very top of SVG -->
+      <rect x="0" y="0" width="800" height="6" fill="url(#gopGrad)" opacity=".4"/>
+    </svg>
+  </div>
+
+  <!-- Hero text -->
+  <div class="hero-text" id="hero-text">
+    <h1 class="hero-groom" id="hero-groom">Arjun</h1>
+    <div class="hero-ampersand">&amp;</div>
+    <h1 class="hero-bride" id="hero-bride">Meenakshi</h1>
+    <p class="hero-date">14 · February · 2026</p>
+  </div>
+
+  <div class="scroll-hint">
+    <span>Scroll to explore</span>
+    <div class="scroll-arrow"></div>
+  </div>
+</section>
+
+
+<!-- ═══ KOLAM DIVIDER 1 ═══ -->
+<div class="kolam-divider" aria-hidden="true">
+  <svg viewBox="0 0 800 60" xmlns="http://www.w3.org/2000/svg">
+    <!-- Dot grid kolam -->
+    <g fill="#c9943a" opacity=".55">
+      <!-- Row 1 -->
+      <circle cx="50"  cy="30" r="2.5"/>
+      <circle cx="100" cy="30" r="2.5"/>
+      <circle cx="150" cy="30" r="2.5"/>
+      <circle cx="200" cy="30" r="2.5"/>
+      <circle cx="250" cy="30" r="2.5"/>
+      <circle cx="300" cy="30" r="2.5"/>
+      <circle cx="500" cy="30" r="2.5"/>
+      <circle cx="550" cy="30" r="2.5"/>
+      <circle cx="600" cy="30" r="2.5"/>
+      <circle cx="650" cy="30" r="2.5"/>
+      <circle cx="700" cy="30" r="2.5"/>
+      <circle cx="750" cy="30" r="2.5"/>
+    </g>
+    <!-- Connecting curves -->
+    <path d="M75 20 Q100 10 125 20 Q150 30 175 20 Q200 10 225 20 Q250 30 275 20" fill="none" stroke="#c9943a" stroke-width="1" opacity=".4"/>
+    <path d="M525 20 Q550 10 575 20 Q600 30 625 20 Q650 10 675 20 Q700 30 725 20" fill="none" stroke="#c9943a" stroke-width="1" opacity=".4"/>
+    <!-- Centre ornament -->
+    <g transform="translate(400,30)">
+      <circle r="10" fill="none" stroke="#c9943a" stroke-width="1.5"/>
+      <circle r="4"  fill="#c9943a"/>
+      <line x1="-20" y1="0" x2="-12" y2="0" stroke="#c9943a" stroke-width="1"/>
+      <line x1="12"  y1="0" x2="20"  y2="0" stroke="#c9943a" stroke-width="1"/>
+      <line x1="0" y1="-20" x2="0"  y2="-12" stroke="#c9943a" stroke-width="1"/>
+      <line x1="0" y1="12"  x2="0"  y2="20"  stroke="#c9943a" stroke-width="1"/>
+    </g>
+    <!-- Long lines -->
+    <line x1="0"   y1="30" x2="370" y2="30" stroke="#c9943a" stroke-width=".8" opacity=".3"/>
+    <line x1="430" y1="30" x2="800" y2="30" stroke="#c9943a" stroke-width=".8" opacity=".3"/>
+  </svg>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     §2 BLESSING
+══════════════════════════════════════════════════════════ -->
+<section id="blessing" class="reveal-section">
+  <div class="section-inner">
+    <p class="sanskrit-verse reveal-item">
+      ॐ विघ्नेश्वराय नमः<br/>
+      <span class="tamil-sub">சுபமுஹூர்த்தத்தில் திருமணம்</span>
+    </p>
+
+    <div class="family-tree reveal-item">
+      <div class="family-col">
+        <h3>Groom's Family</h3>
+        <p class="grandparents">Late Shri Ramasamy &amp; Smt. Parvathiammal</p>
+        <p class="parents"><strong>Shri S. Krishnamurthy</strong> &amp; <strong>Smt. Lalitha Krishnamurthy</strong></p>
+        <p class="invite-line">joyfully invite you to the wedding of their son</p>
+      </div>
+      <div class="family-names-center">
+        <div class="big-names reveal-item">
+          <span class="big-groom">Arjun</span>
+          <span class="big-and">✦</span>
+          <span class="big-bride">Meenakshi</span>
+        </div>
+      </div>
+      <div class="family-col">
+        <h3>Bride's Family</h3>
+        <p class="grandparents">Late Shri Sundaram &amp; Smt. Meenakshiammal</p>
+        <p class="parents"><strong>Shri P. Annamalai</strong> &amp; <strong>Smt. Vijayalakshmi Annamalai</strong></p>
+        <p class="invite-line">with great pride invite you to the wedding of their daughter</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ KOLAM DIVIDER 2 ═══ -->
+<div class="kolam-divider kolam-flip" aria-hidden="true">
+  <svg viewBox="0 0 800 60" xmlns="http://www.w3.org/2000/svg">
+    <g fill="#c9943a" opacity=".45">
+      <circle cx="80"  cy="30" r="2"/><circle cx="140" cy="30" r="2"/><circle cx="200" cy="30" r="2"/>
+      <circle cx="260" cy="30" r="2"/><circle cx="320" cy="30" r="2"/>
+      <circle cx="480" cy="30" r="2"/><circle cx="540" cy="30" r="2"/>
+      <circle cx="600" cy="30" r="2"/><circle cx="660" cy="30" r="2"/><circle cx="720" cy="30" r="2"/>
+    </g>
+    <path d="M80 30 Q110 15 140 30 Q170 45 200 30 Q230 15 260 30 Q290 45 320 30" fill="none" stroke="#c9943a" stroke-width="1.2" opacity=".5"/>
+    <path d="M480 30 Q510 15 540 30 Q570 45 600 30 Q630 15 660 30 Q690 45 720 30" fill="none" stroke="#c9943a" stroke-width="1.2" opacity=".5"/>
+    <g transform="translate(400,30)">
+      <polygon points="0,-12 6,-4 14,0 6,4 0,12 -6,4 -14,0 -6,-4" fill="none" stroke="#c9943a" stroke-width="1.2"/>
+      <circle r="3" fill="#c9943a"/>
+    </g>
+    <line x1="0"   y1="30" x2="375" y2="30" stroke="#c9943a" stroke-width=".6" opacity=".3"/>
+    <line x1="425" y1="30" x2="800" y2="30" stroke="#c9943a" stroke-width=".6" opacity=".3"/>
+  </svg>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     §3 EVENTS
+══════════════════════════════════════════════════════════ -->
+<section id="events" class="reveal-section">
+  <div class="section-inner">
+    <h2 class="section-title reveal-item">The Sacred Ceremony</h2>
+    <p class="section-sub reveal-item">Join us to witness this divine union</p>
+
+    <div class="events-grid reveal-item">
+
+      <!-- Kalyanam -->
+      <div class="event-card">
+        <div class="event-card-inner">
+          <div class="event-icon">🪔</div>
+          <h3>Kalyanam</h3>
+          <p class="event-sub">The Sacred Wedding</p>
+          <div class="event-detail"><span>📅</span> 14 February, 2026</div>
+          <div class="event-detail"><span>🕖</span> 7:00 AM — Auspicious Muhurtham</div>
+          <div class="event-detail"><span>📍</span> Sri Kapaleeshwarar Mandapam</div>
+          <div class="event-detail"><span>🗺</span> Mylapore, Chennai — 600 004</div>
+          <p class="event-note">Dress: Traditional Silk Saree / Veshti</p>
+        </div>
+      </div>
+
+      <!-- Reception -->
+      <div class="event-card">
+        <div class="event-card-inner">
+          <div class="event-icon">✨</div>
+          <h3>Reception</h3>
+          <p class="event-sub">Evening Celebration</p>
+          <div class="event-detail"><span>📅</span> 14 February, 2026</div>
+          <div class="event-detail"><span>🕕</span> 6:00 PM onwards</div>
+          <div class="event-detail"><span>📍</span> Sri Kapaleeshwarar Mandapam</div>
+          <div class="event-detail"><span>🗺</span> Mylapore, Chennai — 600 004</div>
+          <p class="event-note">Dress: Festive Attire</p>
+        </div>
+      </div>
+
+      <!-- Nalangu -->
+      <div class="event-card">
+        <div class="event-card-inner">
+          <div class="event-icon">🌸</div>
+          <h3>Nalangu</h3>
+          <p class="event-sub">Mehendi &amp; Celebration</p>
+          <div class="event-detail"><span>📅</span> 13 February, 2026</div>
+          <div class="event-detail"><span>🕔</span> 4:00 PM — 8:00 PM</div>
+          <div class="event-detail"><span>📍</span> Bride's Residence</div>
+          <div class="event-detail"><span>🗺</span> Anna Nagar, Chennai</div>
+          <p class="event-note">Ladies Only — Mehndi &amp; Music</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ KOLAM DIVIDER 3 ═══ -->
+<div class="kolam-divider" aria-hidden="true">
+  <svg viewBox="0 0 800 60" xmlns="http://www.w3.org/2000/svg">
+    <g fill="#c9943a" opacity=".4">
+      <circle cx="60"  cy="30" r="2.5"/><circle cx="120" cy="30" r="2.5"/>
+      <circle cx="180" cy="30" r="2.5"/><circle cx="240" cy="30" r="2.5"/>
+      <circle cx="560" cy="30" r="2.5"/><circle cx="620" cy="30" r="2.5"/>
+      <circle cx="680" cy="30" r="2.5"/><circle cx="740" cy="30" r="2.5"/>
+    </g>
+    <path d="M60 25 C 80 10 100 10 120 25 C 140 40 160 40 180 25 C 200 10 220 10 240 25" fill="none" stroke="#c9943a" stroke-width="1" opacity=".45"/>
+    <path d="M560 25 C 580 10 600 10 620 25 C 640 40 660 40 680 25 C 700 10 720 10 740 25" fill="none" stroke="#c9943a" stroke-width="1" opacity=".45"/>
+    <g transform="translate(400,30)">
+      <circle r="14" fill="none" stroke="#c9943a" stroke-width="1" opacity=".5"/>
+      <circle r="8"  fill="none" stroke="#c9943a" stroke-width="1" opacity=".7"/>
+      <circle r="3"  fill="#c9943a"/>
+      <line x1="-20" y1="0" x2="20" y2="0"  stroke="#c9943a" stroke-width=".8" opacity=".5"/>
+      <line x1="0" y1="-20" x2="0" y2="20"  stroke="#c9943a" stroke-width=".8" opacity=".5"/>
+    </g>
+    <line x1="0"   y1="30" x2="378" y2="30" stroke="#c9943a" stroke-width=".5" opacity=".3"/>
+    <line x1="422" y1="30" x2="800" y2="30" stroke="#c9943a" stroke-width=".5" opacity=".3"/>
+  </svg>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     §4 COUPLE
+══════════════════════════════════════════════════════════ -->
+<section id="couple" class="reveal-section">
+  <div class="section-inner">
+    <h2 class="section-title reveal-item">The Couple</h2>
+
+    <div class="couple-grid">
+
+      <!-- Groom -->
+      <div class="person-card reveal-item">
+        <div class="photo-frame">
+          <div class="photo-placeholder">
+            <svg viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="phGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#2a1505"/><stop offset="100%" stop-color="#0d0804"/>
+                </linearGradient>
+              </defs>
+              <rect width="200" height="220" fill="url(#phGrad)" rx="4"/>
+              <!-- Ornate corner frames -->
+              <g stroke="#c9943a" stroke-width="1.5" fill="none" opacity=".8">
+                <path d="M10 10 L40 10 L40 14 M10 10 L10 40 L14 40"/>
+                <path d="M190 10 L160 10 L160 14 M190 10 L190 40 L186 40"/>
+                <path d="M10 210 L40 210 L40 206 M10 210 L10 180 L14 180"/>
+                <path d="M190 210 L160 210 L160 206 M190 210 L190 180 L186 180"/>
+              </g>
+              <!-- Silhouette groom -->
+              <ellipse cx="100" cy="75"  rx="28" ry="30" fill="#c9943a" opacity=".3"/>
+              <path d="M62 180 Q80 140 100 135 Q120 140 138 180 L138 220 L62 220 Z" fill="#c9943a" opacity=".2"/>
+              <!-- Veshti lines -->
+              <line x1="70" y1="155" x2="130" y2="155" stroke="#c9943a" stroke-width="1" opacity=".4"/>
+              <line x1="70" y1="165" x2="130" y2="165" stroke="#c9943a" stroke-width="1" opacity=".3"/>
+              <text x="100" y="205" text-anchor="middle" fill="#c9943a" opacity=".5" font-size="9" font-family="Cinzel,serif" letter-spacing="1">PHOTO</text>
+            </svg>
+          </div>
+          <div class="frame-corner tl"></div>
+          <div class="frame-corner tr"></div>
+          <div class="frame-corner bl"></div>
+          <div class="frame-corner br"></div>
+        </div>
+        <h3 class="person-name">Arjun Krishnamurthy</h3>
+        <p class="person-bio">Software Engineer by profession, a devotee of Murugan at heart. Loves Carnatic music, temple architecture, and long road trips to hill shrines.</p>
+        <blockquote class="person-quote">"Where two souls merge, the divine reveals itself."</blockquote>
+      </div>
+
+      <!-- Centre ornament -->
+      <div class="couple-center-ornament reveal-item">
+        <svg viewBox="0 0 80 200" xmlns="http://www.w3.org/2000/svg">
+          <line x1="40" y1="0" x2="40" y2="200" stroke="#c9943a" stroke-width="1" opacity=".4"/>
+          <g transform="translate(40,100)" fill="none" stroke="#c9943a">
+            <circle r="20" stroke-width="1.5" opacity=".7"/>
+            <circle r="10" stroke-width="1"   opacity=".5"/>
+            <circle r="4"  fill="#c9943a" stroke="none"/>
+            <path d="M0 -28 L3 -22 L0 -16 L-3 -22 Z" fill="#c9943a" opacity=".6"/>
+            <path d="M0  28 L3  22 L0  16 L-3  22 Z" fill="#c9943a" opacity=".6"/>
+          </g>
+        </svg>
+      </div>
+
+      <!-- Bride -->
+      <div class="person-card reveal-item">
+        <div class="photo-frame">
+          <div class="photo-placeholder">
+            <svg viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg">
+              <rect width="200" height="220" fill="url(#phGrad)" rx="4"/>
+              <g stroke="#c9943a" stroke-width="1.5" fill="none" opacity=".8">
+                <path d="M10 10 L40 10 L40 14 M10 10 L10 40 L14 40"/>
+                <path d="M190 10 L160 10 L160 14 M190 10 L190 40 L186 40"/>
+                <path d="M10 210 L40 210 L40 206 M10 210 L10 180 L14 180"/>
+                <path d="M190 210 L160 210 L160 206 M190 210 L190 180 L186 180"/>
+              </g>
+              <ellipse cx="100" cy="70"  rx="26" ry="28" fill="#c9943a" opacity=".3"/>
+              <!-- Saree drape lines -->
+              <path d="M75 130 Q85 120 100 120 Q115 120 125 130 L138 220 L62 220 Z" fill="#c9943a" opacity=".2"/>
+              <path d="M62 140 Q80 155 100 158 Q120 155 138 140" fill="none" stroke="#c9943a" stroke-width="1" opacity=".4"/>
+              <!-- Hair bun -->
+              <ellipse cx="100" cy="48"  rx="14" ry="10" fill="#c9943a" opacity=".2"/>
+              <circle  cx="100" cy="44"  r="5"          fill="#c9943a" opacity=".2"/>
+              <text x="100" y="205" text-anchor="middle" fill="#c9943a" opacity=".5" font-size="9" font-family="Cinzel,serif" letter-spacing="1">PHOTO</text>
+            </svg>
+          </div>
+          <div class="frame-corner tl"></div>
+          <div class="frame-corner tr"></div>
+          <div class="frame-corner bl"></div>
+          <div class="frame-corner br"></div>
+        </div>
+        <h3 class="person-name">Meenakshi Annamalai</h3>
+        <p class="person-bio">Classical Bharatanatyam dancer and school teacher. Finds peace in Rangoli, temple visits, and the fragrance of fresh jasmine on a dawn walk.</p>
+        <blockquote class="person-quote">"Love is the kolam drawn at the threshold of two lives."</blockquote>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ KOLAM DIVIDER 4 ═══ -->
+<div class="kolam-divider kolam-flip" aria-hidden="true">
+  <svg viewBox="0 0 800 60" xmlns="http://www.w3.org/2000/svg">
+    <g fill="#c9943a" opacity=".4">
+      <circle cx="50"  cy="15" r="2"/><circle cx="100" cy="15" r="2"/><circle cx="150" cy="15" r="2"/>
+      <circle cx="50"  cy="45" r="2"/><circle cx="100" cy="45" r="2"/><circle cx="150" cy="45" r="2"/>
+      <circle cx="650" cy="15" r="2"/><circle cx="700" cy="15" r="2"/><circle cx="750" cy="15" r="2"/>
+      <circle cx="650" cy="45" r="2"/><circle cx="700" cy="45" r="2"/><circle cx="750" cy="45" r="2"/>
+    </g>
+    <path d="M50 15 Q100 30 150 15" fill="none" stroke="#c9943a" stroke-width="1" opacity=".4"/>
+    <path d="M50 45 Q100 30 150 45" fill="none" stroke="#c9943a" stroke-width="1" opacity=".4"/>
+    <path d="M650 15 Q700 30 750 15" fill="none" stroke="#c9943a" stroke-width="1" opacity=".4"/>
+    <path d="M650 45 Q700 30 750 45" fill="none" stroke="#c9943a" stroke-width="1" opacity=".4"/>
+    <g transform="translate(400,30)">
+      <path d="M0,-20 L5,-5 L20,0 L5,5 L0,20 L-5,5 L-20,0 L-5,-5 Z" fill="none" stroke="#c9943a" stroke-width="1.5"/>
+      <circle r="4" fill="#c9943a"/>
+    </g>
+    <line x1="200" y1="30" x2="375" y2="30" stroke="#c9943a" stroke-width=".6" opacity=".3"/>
+    <line x1="425" y1="30" x2="600" y2="30" stroke="#c9943a" stroke-width=".6" opacity=".3"/>
+  </svg>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     §5 RSVP
+══════════════════════════════════════════════════════════ -->
+<section id="rsvp" class="reveal-section">
+  <div class="rsvp-bg-pattern"></div>
+  <div class="section-inner rsvp-inner">
+    <h2 class="section-title reveal-item" style="color:#fdf6e3;">Your Presence Is Our Blessing</h2>
+    <p class="section-sub reveal-item" style="color:rgba(232,196,106,.75);">
+      அன்பானவர்களே — We joyfully await your presence<br/>
+      <span class="tamil-sub">உங்கள் வருகை எங்கள் மகிழ்ச்சி</span>
+    </p>
+
+    <div class="rsvp-actions reveal-item">
+      <a class="btn-whatsapp"
+         href="https://wa.me/919876543210?text=I%20will%20attend%20the%20wedding%20of%20Arjun%20%26%20Meenakshi%20on%2014%20Feb%202026%20%F0%9F%99%8F"
+         target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.521.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.521-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+        RSVP via WhatsApp
+      </a>
+      <a class="btn-call" href="tel:+919876543210">
+        📞 Call Us
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ KOLAM DIVIDER 5 ═══ -->
+<div class="kolam-divider" aria-hidden="true">
+  <svg viewBox="0 0 800 60" xmlns="http://www.w3.org/2000/svg">
+    <line x1="0" y1="30" x2="800" y2="30" stroke="#c9943a" stroke-width=".5" opacity=".25"/>
+    <g transform="translate(400,30)">
+      <circle r="16" fill="none" stroke="#c9943a" stroke-width="1.2" opacity=".6"/>
+      <circle r="8"  fill="none" stroke="#c9943a" stroke-width="1"   opacity=".7"/>
+      <circle r="2"  fill="#c9943a"/>
+    </g>
+    <g fill="#c9943a" opacity=".4">
+      <circle cx="160" cy="30" r="2"/><circle cx="200" cy="30" r="2"/><circle cx="240" cy="30" r="2"/>
+      <circle cx="560" cy="30" r="2"/><circle cx="600" cy="30" r="2"/><circle cx="640" cy="30" r="2"/>
+    </g>
+  </svg>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     §6 DETAILS
+══════════════════════════════════════════════════════════ -->
+<section id="details" class="reveal-section">
+  <div class="section-inner">
+    <h2 class="section-title reveal-item">Venue &amp; Details</h2>
+
+    <div class="details-grid">
+
+      <div class="detail-card reveal-item">
+        <div class="detail-icon">🛕</div>
+        <h3>Wedding Venue</h3>
+        <p>Sri Kapaleeshwarar Mandapam<br/>Mylapore, Chennai — 600 004<br/>Tamil Nadu, India</p>
+        <a class="detail-link"
+           href="https://maps.google.com/?q=Kapaleeshwarar+Temple+Mylapore+Chennai"
+           target="_blank" rel="noopener">
+          📍 Open in Google Maps
+        </a>
+      </div>
+
+      <div class="detail-card reveal-item">
+        <div class="detail-icon">🌸</div>
+        <h3>Nalangu Venue</h3>
+        <p>Annamalai Residence<br/>Door No. 12, 4th Main Road<br/>Anna Nagar, Chennai — 600 040</p>
+        <a class="detail-link"
+           href="https://maps.google.com/?q=Anna+Nagar+Chennai"
+           target="_blank" rel="noopener">
+          📍 Open in Google Maps
+        </a>
+      </div>
+
+      <div class="detail-card reveal-item">
+        <div class="detail-icon">🎀</div>
+        <h3>Dress Code</h3>
+        <p><strong>Wedding:</strong> Silk Saree / Dhoti &amp; Shirt<br/><strong>Reception:</strong> Festive Traditional<br/><strong>Nalangu:</strong> Colourful Traditional</p>
+      </div>
+
+      <div class="detail-card reveal-item">
+        <div class="detail-icon">📞</div>
+        <h3>Contact</h3>
+        <p>Krishnamurthy (Groom's Father)<br/>+91 98765 43210</p>
+        <p style="margin-top:.5rem">Annamalai (Bride's Father)<br/>+91 87654 32109</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ KOLAM DIVIDER 6 ═══ -->
+<div class="kolam-divider kolam-flip" aria-hidden="true">
+  <svg viewBox="0 0 800 60" xmlns="http://www.w3.org/2000/svg">
+    <g fill="#c9943a" opacity=".35">
+      <circle cx="80"  cy="20" r="2"/><circle cx="80"  cy="40" r="2"/>
+      <circle cx="140" cy="20" r="2"/><circle cx="140" cy="40" r="2"/>
+      <circle cx="200" cy="20" r="2"/><circle cx="200" cy="40" r="2"/>
+      <circle cx="600" cy="20" r="2"/><circle cx="600" cy="40" r="2"/>
+      <circle cx="660" cy="20" r="2"/><circle cx="660" cy="40" r="2"/>
+      <circle cx="720" cy="20" r="2"/><circle cx="720" cy="40" r="2"/>
+    </g>
+    <path d="M80 20 L140 40 L200 20" fill="none" stroke="#c9943a" stroke-width="1" opacity=".4"/>
+    <path d="M600 20 L660 40 L720 20" fill="none" stroke="#c9943a" stroke-width="1" opacity=".4"/>
+    <g transform="translate(400,30)">
+      <path d="M0,-18 C10,-18 18,-10 18,0 C18,10 10,18 0,18 C-10,18 -18,10 -18,0 C-18,-10 -10,-18 0,-18 Z" fill="none" stroke="#c9943a" stroke-width="1.2" opacity=".6"/>
+      <path d="M0,-10 C6,-10 10,-6 10,0 C10,6 6,10 0,10 C-6,10 -10,6 -10,0 C-10,-6 -6,-10 0,-10 Z" fill="none" stroke="#c9943a" stroke-width="1" opacity=".7"/>
+      <circle r="3" fill="#c9943a"/>
+    </g>
+    <line x1="230" y1="30" x2="375" y2="30" stroke="#c9943a" stroke-width=".6" opacity=".3"/>
+    <line x1="425" y1="30" x2="570" y2="30" stroke="#c9943a" stroke-width=".6" opacity=".3"/>
+  </svg>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     §7 COUNTDOWN
+══════════════════════════════════════════════════════════ -->
+<section id="countdown" class="reveal-section">
+  <canvas id="count-canvas"></canvas>
+  <div class="section-inner countdown-inner">
+    <h2 class="section-title reveal-item" style="color:#fdf6e3;">Counting Down To The Big Day</h2>
+    <p class="section-sub reveal-item" style="color:rgba(232,196,106,.7);">14 February 2026 — Arjun &amp; Meenakshi</p>
+
+    <div class="countdown-grid reveal-item">
+      <div class="count-unit"><span id="cd-days">--</span><label>Days</label></div>
+      <div class="count-sep">·</div>
+      <div class="count-unit"><span id="cd-hours">--</span><label>Hours</label></div>
+      <div class="count-sep">·</div>
+      <div class="count-unit"><span id="cd-mins">--</span><label>Minutes</label></div>
+      <div class="count-sep">·</div>
+      <div class="count-unit"><span id="cd-secs">--</span><label>Seconds</label></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     §8 FOOTER
+══════════════════════════════════════════════════════════ -->
+<footer id="footer">
+  <div class="footer-kolam" aria-hidden="true">
+    <svg viewBox="0 0 800 40" xmlns="http://www.w3.org/2000/svg">
+      <line x1="0" y1="20" x2="800" y2="20" stroke="#c9943a" stroke-width=".6" opacity=".3"/>
+      <g fill="#c9943a" opacity=".5">
+        <circle cx="50"  cy="20" r="2.5"/><circle cx="150" cy="20" r="2.5"/>
+        <circle cx="250" cy="20" r="2.5"/><circle cx="350" cy="20" r="2.5"/>
+        <circle cx="450" cy="20" r="2.5"/><circle cx="550" cy="20" r="2.5"/>
+        <circle cx="650" cy="20" r="2.5"/><circle cx="750" cy="20" r="2.5"/>
+      </g>
+    </svg>
+  </div>
+
+  <div class="footer-inner">
+    <div class="footer-om">ॐ</div>
+    <div class="footer-names">Arjun &amp; Meenakshi</div>
+    <div class="footer-date">14 · February · 2026 · Mylapore, Chennai</div>
+
+    <div class="footer-studio">
+      <p class="studio-label">Wedding Photography &amp; Website by</p>
+      <p class="studio-name">KalaiSelvi Photography</p>
+      <div class="studio-links">
+        <a class="studio-link wa"
+           href="https://wa.me/919876500000"
+           target="_blank" rel="noopener"
+           title="WhatsApp KalaiSelvi Photography">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.521.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.521-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+          </svg>
+          WhatsApp
+        </a>
+        <a class="studio-link ig"
+           href="https://instagram.com/kalaiselvi.photography"
+           target="_blank" rel="noopener"
+           title="Instagram KalaiSelvi Photography">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+          </svg>
+          Instagram
+        </a>
+      </div>
+    </div>
+
+    <p class="footer-copy">
+      With love &amp; blessings — வாழ்க வளமுடன்<br/>
+      <small>© 2026 KalaiSelvi Photography. All rights reserved.</small>
+    </p>
+  </div>
+</footer>
+
+
+<script src="js/main.js"></script>
+</body>
+</html>
